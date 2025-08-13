@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>61.0</apiVersion>
+    <description>Get weather forecast data for any location using coordinates. Perfect for providing real-time weather information to customers and support agents.</description>
+    <label>Get Weather Forecast</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <start>
+        <locationX>176</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Get_Weather_Data</targetReference>
+        </connector>
+    </start>
+    <actionCalls>
+        <description>Call the WeatherApiService to get weather forecast data</description>
+        <name>Get_Weather_Data</name>
+        <label>Get Weather Data</label>
+        <locationX>176</locationX>
+        <locationY>134</locationY>
+        <actionName>WeatherApiService</actionName>
+        <actionType>apex</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>latitude</name>
+            <value>
+                <elementReference>Latitude</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>longitude</name>
+            <value>
+                <elementReference>Longitude</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>hourly</name>
+            <value>
+                <elementReference>HourlyParameters</elementReference>
+            </value>
+        </inputParameters>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </actionCalls>
+    <variables>
+        <description>Latitude coordinate for the weather location</description>
+        <name>Latitude</name>
+        <dataType>Number</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+        <scale>6</scale>
+    </variables>
+    <variables>
+        <description>Longitude coordinate for the weather location</description>
+        <name>Longitude</name>
+        <dataType>Number</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+        <scale>6</scale>
+    </variables>
+    <variables>
+        <description>Optional hourly parameters (e.g., temperature_2m,humidity,precipitation). Defaults to temperature_2m if not provided.</description>
+        <name>HourlyParameters</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <description>Formatted weather response for display</description>
+        <name>WeatherResponse</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>true</isOutput>
+        <value>
+            <elementReference>Get_Weather_Data.formattedResponse</elementReference>
+        </value>
+    </variables>
+    <variables>
+        <description>Whether the weather API call was successful</description>
+        <name>Success</name>
+        <dataType>Boolean</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>true</isOutput>
+        <value>
+            <elementReference>Get_Weather_Data.success</elementReference>
+        </value>
+    </variables>
+    <variables>
+        <description>Error message if the weather API call failed</description>
+        <name>ErrorMessage</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>true</isOutput>
+        <value>
+            <elementReference>Get_Weather_Data.errorMessage</elementReference>
+        </value>
+    </variables>
+</Flow>

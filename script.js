@@ -1,8 +1,105 @@
 // EcoRise Energy Website JavaScript
 console.log('EcoRise Energy website loaded');
 
+// Account dropdown functionality
+function initAccountDropdown() {
+    const accountBtn = document.getElementById('accountBtn');
+    const dropdownMenu = document.getElementById('dropdownMenu');
+
+    if (accountBtn && dropdownMenu) {
+        accountBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const isOpen = dropdownMenu.classList.contains('show');
+            
+            if (isOpen) {
+                closeDropdown();
+            } else {
+                openDropdown();
+            }
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!accountBtn.contains(e.target) && !dropdownMenu.contains(e.target)) {
+                closeDropdown();
+            }
+        });
+
+        // Handle dropdown item clicks
+        const dropdownItems = dropdownMenu.querySelectorAll('.dropdown-item');
+        dropdownItems.forEach(item => {
+            item.addEventListener('click', function(e) {
+                e.preventDefault();
+                const href = this.getAttribute('href');
+                
+                // Handle different menu items
+                if (href === '#logout') {
+                    handleLogout();
+                } else if (href === '#dashboard') {
+                    showDashboard();
+                } else if (href === '#usage') {
+                    showUsageAnalytics();
+                } else if (href === '#billing') {
+                    showBilling();
+                } else if (href === '#maintenance') {
+                    showMaintenance();
+                } else if (href === '#support') {
+                    showSupport();
+                } else if (href === '#settings') {
+                    showSettings();
+                }
+                
+                closeDropdown();
+            });
+        });
+    }
+
+    function openDropdown() {
+        dropdownMenu.classList.add('show');
+        accountBtn.classList.add('active');
+    }
+
+    function closeDropdown() {
+        dropdownMenu.classList.remove('show');
+        accountBtn.classList.remove('active');
+    }
+
+    // Placeholder functions for menu items
+    function handleLogout() {
+        if (confirm('Are you sure you want to sign out?')) {
+            alert('Signing out... (This would redirect to login page)');
+        }
+    }
+
+    function showDashboard() {
+        alert('Opening Energy Dashboard... (This would show your energy production and consumption data)');
+    }
+
+    function showUsageAnalytics() {
+        alert('Opening Usage Analytics... (This would show detailed energy usage reports)');
+    }
+
+    function showBilling() {
+        alert('Opening Billing & Payments... (This would show your bills and payment options)');
+    }
+
+    function showMaintenance() {
+        alert('Opening Maintenance... (This would show maintenance schedules and service requests)');
+    }
+
+    function showSupport() {
+        alert('Opening Support Tickets... (This would show your support history and create new tickets)');
+    }
+
+    function showSettings() {
+        alert('Opening Account Settings... (This would show profile and notification settings)');
+    }
+}
+
 // Smooth scrolling for navigation links
 document.addEventListener('DOMContentLoaded', function() {
+    // Initialize account dropdown
+    initAccountDropdown();
     const navLinks = document.querySelectorAll('.nav a[href^="#"]');
     
     navLinks.forEach(link => {

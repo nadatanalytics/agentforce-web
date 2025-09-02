@@ -9,7 +9,7 @@
 </head>
 <body>
   <header class="header">
-    <div class="container">
+    <div class="container header-container">
       <div class="logo">
         <h1>🌱 EcoRise Energy</h1>
       </div>
@@ -132,6 +132,56 @@
       </div>
     </section>
 
+    <section class="testimonials">
+      <div class="container">
+        <h2>What Our Customers Say</h2>
+        <div class="testimonials-grid">
+          <div class="testimonial-card">
+            <div class="testimonial-content">
+              <div class="stars">⭐⭐⭐⭐⭐</div>
+              <p>"EcoRise Energy transformed our home! We're now generating 120% of our energy needs and our electricity bills are practically zero. The installation was seamless and professional."</p>
+            </div>
+            <div class="testimonial-author">
+              <div class="author-avatar">SM</div>
+              <div class="author-info">
+                <h4>Sarah Martinez</h4>
+                <span>Residential Customer</span>
+                <div class="savings">Saving $2,400/year</div>
+              </div>
+            </div>
+          </div>
+          <div class="testimonial-card">
+            <div class="testimonial-content">
+              <div class="stars">⭐⭐⭐⭐⭐</div>
+              <p>"Our business reduced energy costs by 85% with EcoRise's commercial solar solution. The ROI exceeded expectations and our carbon footprint is now net negative!"</p>
+            </div>
+            <div class="testimonial-author">
+              <div class="author-avatar">DL</div>
+              <div class="author-info">
+                <h4>David Lee</h4>
+                <span>Business Owner</span>
+                <div class="savings">Saving $18,000/year</div>
+              </div>
+            </div>
+          </div>
+          <div class="testimonial-card">
+            <div class="testimonial-content">
+              <div class="stars">⭐⭐⭐⭐⭐</div>
+              <p>"The battery storage system has been a game-changer. Even during power outages, our home runs smoothly. EcoRise's 24/7 support is outstanding!"</p>
+            </div>
+            <div class="testimonial-author">
+              <div class="author-avatar">RJ</div>
+              <div class="author-info">
+                <h4>Rachel Johnson</h4>
+                <span>Premium Member</span>
+                <div class="savings">100% Energy Independence</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section id="about" class="about">
       <div class="container">
         <div class="about-content">
@@ -159,22 +209,158 @@
       </div>
     </section>
 
+    <section class="energy-calculator">
+      <div class="container">
+        <h2>Calculate Your Solar Savings</h2>
+        <p>Get an instant estimate of your potential energy savings and ROI</p>
+        <div class="calculator-card">
+          <div class="calculator-inputs">
+            <div class="input-group">
+              <label for="monthlyBill">Monthly Electric Bill ($)</label>
+              <input type="number" id="monthlyBill" placeholder="150" min="0">
+            </div>
+            <div class="input-group">
+              <label for="homeSize">Home Size (sq ft)</label>
+              <input type="number" id="homeSize" placeholder="2000" min="0">
+            </div>
+            <div class="input-group">
+              <label for="location">Location</label>
+              <select id="location">
+                <option value="high">High Sun Area (Southwest)</option>
+                <option value="medium" selected>Medium Sun Area (Most States)</option>
+                <option value="low">Low Sun Area (Northwest)</option>
+              </select>
+            </div>
+            <button class="btn btn-primary" id="calculateBtn">Calculate Savings</button>
+          </div>
+          <div class="calculator-results" id="calculatorResults">
+            <div class="result-card">
+              <div class="result-icon">💰</div>
+              <div class="result-info">
+                <h3>Annual Savings</h3>
+                <div class="result-value" id="annualSavings">$0</div>
+              </div>
+            </div>
+            <div class="result-card">
+              <div class="result-icon">📊</div>
+              <div class="result-info">
+                <h3>25-Year Savings</h3>
+                <div class="result-value" id="lifetimeSavings">$0</div>
+              </div>
+            </div>
+            <div class="result-card">
+              <div class="result-icon">🌱</div>
+              <div class="result-info">
+                <h3>CO₂ Offset</h3>
+                <div class="result-value" id="carbonOffset">0 tons/year</div>
+              </div>
+            </div>
+            <div class="result-card">
+              <div class="result-icon">⚡</div>
+              <div class="result-info">
+                <h3>System Size</h3>
+                <div class="result-value" id="systemSize">0 kW</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section id="contact" class="contact">
       <div class="container">
-        <h2>Get Started Today</h2>
+        <h2>Get Your Free Solar Quote Today</h2>
         <p>Ready to make the switch to clean energy? Our experts are here to help you every step of the way.</p>
-        <div class="contact-info">
-          <div class="contact-item">
-            <span class="contact-icon">📧</span>
-            <span>info@ecorise-energy.com</span>
+        
+        <div class="contact-content">
+          <div class="contact-form">
+            <h3>Request Your Quote</h3>
+            <form id="quoteForm">
+              <div class="form-row">
+                <div class="form-group">
+                  <input type="text" id="firstName" placeholder="First Name" required>
+                </div>
+                <div class="form-group">
+                  <input type="text" id="lastName" placeholder="Last Name" required>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <input type="email" id="email" placeholder="Email Address" required>
+                </div>
+                <div class="form-group">
+                  <input type="tel" id="phone" placeholder="Phone Number" required>
+                </div>
+              </div>
+              <div class="form-group">
+                <input type="text" id="address" placeholder="Property Address" required>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <select id="propertyType" required>
+                    <option value="">Property Type</option>
+                    <option value="residential">Residential</option>
+                    <option value="commercial">Commercial</option>
+                    <option value="industrial">Industrial</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <select id="timeframe" required>
+                    <option value="">Installation Timeframe</option>
+                    <option value="asap">ASAP</option>
+                    <option value="3months">Within 3 months</option>
+                    <option value="6months">Within 6 months</option>
+                    <option value="1year">Within 1 year</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <textarea id="message" placeholder="Additional details or questions..." rows="3"></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary btn-large">Get Free Quote</button>
+            </form>
           </div>
-          <div class="contact-item">
-            <span class="contact-icon">📞</span>
-            <span>1-800-ECO-RISE</span>
-          </div>
-          <div class="contact-item">
-            <span class="contact-icon">💬</span>
-            <span>Chat with our AI assistant below</span>
+          
+          <div class="contact-info">
+            <h3>Get In Touch</h3>
+            <div class="contact-methods">
+              <div class="contact-item">
+                <span class="contact-icon">📧</span>
+                <div>
+                  <strong>Email</strong>
+                  <span>info@ecorise-energy.com</span>
+                </div>
+              </div>
+              <div class="contact-item">
+                <span class="contact-icon">📞</span>
+                <div>
+                  <strong>Phone</strong>
+                  <span>1-800-ECO-RISE</span>
+                </div>
+              </div>
+              <div class="contact-item">
+                <span class="contact-icon">💬</span>
+                <div>
+                  <strong>Live Chat</strong>
+                  <span>Chat with our AI assistant below</span>
+                </div>
+              </div>
+              <div class="contact-item">
+                <span class="contact-icon">📍</span>
+                <div>
+                  <strong>Service Areas</strong>
+                  <span>Available in all 50 states</span>
+                </div>
+              </div>
+            </div>
+            
+            <div class="guarantees">
+              <h4>Our Guarantees</h4>
+              <div class="guarantee-item">✅ Free consultation and quote</div>
+              <div class="guarantee-item">✅ 25-year equipment warranty</div>
+              <div class="guarantee-item">✅ 10-year installation warranty</div>
+              <div class="guarantee-item">✅ 30-day money-back guarantee</div>
+            </div>
           </div>
         </div>
       </div>
@@ -183,7 +369,7 @@
 
   <footer class="footer">
     <div class="container">
-      <p>&copy; 2024 EcoRise Energy. All rights reserved. | Powering a sustainable tomorrow.</p>
+      <p>&copy; 2025 EcoRise Energy. All rights reserved. | Powering a sustainable tomorrow.</p>
     </div>
   </footer>
 

@@ -100,6 +100,12 @@ function initAccountDropdown() {
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize account dropdown
     initAccountDropdown();
+    
+    // Initialize energy calculator
+    initEnergyCalculator();
+    
+    // Initialize quote form
+    initQuoteForm();
     const navLinks = document.querySelectorAll('.nav a[href^="#"]');
     
     navLinks.forEach(link => {
@@ -203,3 +209,136 @@ document.addEventListener('DOMContentLoaded', function() {
         heroObserver.observe(heroSection);
     }
 });
+
+// Energy Calculator Functionality
+function initEnergyCalculator() {
+    const calculateBtn = document.getElementById('calculateBtn');
+    const monthlyBillInput = document.getElementById('monthlyBill');
+    const homeSizeInput = document.getElementById('homeSize');
+    const locationSelect = document.getElementById('location');
+
+    if (calculateBtn) {
+        calculateBtn.addEventListener('click', function() {
+            const monthlyBill = parseFloat(monthlyBillInput.value) || 0;
+            const homeSize = parseFloat(homeSizeInput.value) || 0;
+            const location = locationSelect.value;
+
+            if (monthlyBill > 0 && homeSize > 0) {
+                calculateSavings(monthlyBill, homeSize, location);
+            } else {
+                alert('Please enter valid values for monthly bill and home size.');
+            }
+        });
+    }
+
+    // Allow calculation on Enter key
+    [monthlyBillInput, homeSizeInput].forEach(input => {
+        if (input) {
+            input.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    calculateBtn.click();
+                }
+            });
+        }
+    });
+}
+
+function calculateSavings(monthlyBill, homeSize, location) {
+    // Solar calculation factors
+    const locationMultipliers = {
+        'high': 1.3,
+        'medium': 1.0,
+        'low': 0.7
+    };
+
+    const sunMultiplier = locationMultipliers[location] || 1.0;
+    
+    // Estimates based on industry averages
+    const annualBill = monthlyBill * 12;
+    const solarOffset = 0.9; // 90% of energy needs covered
+    const annualSavings = Math.round(annualBill * solarOffset * sunMultiplier);
+    const lifetimeSavings = Math.round(annualSavings * 25);
+    
+    // System size estimation (rough calculation)
+    const systemSize = Math.round((annualBill * 0.008) * sunMultiplier * 10) / 10;
+    
+    // Carbon offset (roughly 0.7 tons CO2 per MWh)
+    const carbonOffset = Math.round((systemSize * 1.5 * sunMultiplier) * 10) / 10;
+
+    // Update the display
+    document.getElementById('annualSavings').textContent = `$${annualSavings.toLocaleString()}`;
+    document.getElementById('lifetimeSavings').textContent = `$${lifetimeSavings.toLocaleString()}`;
+    document.getElementById('carbonOffset').textContent = `${carbonOffset} tons/year`;
+    document.getElementById('systemSize').textContent = `${systemSize} kW`;
+
+    // Add animation to results
+    const resultCards = document.querySelectorAll('.result-card');
+    resultCards.forEach((card, index) => {
+        setTimeout(() => {
+            card.style.transform = 'scale(1.05)';
+            setTimeout(() => {
+                card.style.transform = 'scale(1)';
+            }, 200);
+        }, index * 100);
+    });
+}
+
+// Quote Form Functionality
+function initQuoteForm() {
+    const quoteForm = document.getElementById('quoteForm');
+    
+    if (quoteForm) {
+        quoteForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Collect form data
+            const formData = {
+                firstName: document.getElementById('firstName').value,
+                lastName: document.getElementById('lastName').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                address: document.getElementById('address').value,
+                propertyType: document.getElementById('propertyType').value,
+                timeframe: document.getElementById('timeframe').value,
+                message: document.getElementById('message').value
+            };
+            
+            // Basic validation
+            const requiredFields = ['firstName', 'lastName', 'email', 'phone', 'address', 'propertyType', 'timeframe'];
+            const missingFields = requiredFields.filter(field => !formData[field]);
+            
+            if (missingFields.length > 0) {
+                alert('Please fill in all required fields.');
+                return;
+            }
+            
+            // Email validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(formData.email)) {
+                alert('Please enter a valid email address.');
+                return;
+            }
+            
+            // Simulate form submission
+            const submitBtn = quoteForm.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            
+            submitBtn.textContent = 'Sending...';
+            submitBtn.disabled = true;
+            
+            setTimeout(() => {
+                alert(`Thank you ${formData.firstName}! Your quote request has been submitted. Our team will contact you within 24 hours at ${formData.email}.`);
+                
+                // Reset form
+                quoteForm.reset();
+                
+                // Reset button
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+                
+                // In a real application, you would send this data to your backend
+                console.log('Quote request submitted:', formData);
+            }, 2000);
+        });
+    }
+}
